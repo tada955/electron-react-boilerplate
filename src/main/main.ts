@@ -14,6 +14,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { initialiseDB } from './services/Database/DBManager';
+import { readAllEntities } from './services/Database/Entity';
 
 class AppUpdater {
   constructor() {
@@ -127,6 +129,12 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(() => {
+    ipcMain.handle('db:initialise', async () => {
+      return initialiseDB();
+    });
+    ipcMain.handle('entity:readAll', async () => {
+      return readAllEntities();
+    });
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the

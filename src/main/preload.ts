@@ -21,7 +21,10 @@ const electronHandler = {
     once(channel: Channels, func: (...args: unknown[]) => void) {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
+    
   },
+  initialiseDB: () => ipcRenderer.invoke('db:initialise'),
+  readAllEntities: () => ipcRenderer.invoke('entity:readAll'),
 };
 
 contextBridge.exposeInMainWorld('electron', electronHandler);

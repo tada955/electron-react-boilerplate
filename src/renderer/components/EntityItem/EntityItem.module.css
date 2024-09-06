@@ -1,0 +1,39 @@
+@import '../../styles/themes/default.css';
+
+.container {
+  display: flex;
+  direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--secondary-color);
+  padding: 10px 20px;
+  margin: 1px 0px;
+  color: var(--text-color);
+  font-family: var(--font);
+  border-radius: 6px;
+}
+
+.container > :nth-child(1) {
+  margin-right: 15px;
+}
+
+.entity-label {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.entity-cancel {
+  background-color: var(--text-cancel-color);
+  border: none;
+  margin: 0px;
+  font-size: 1.1rem;
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.entity-selected {
+  background-color: var(--primary-color);
+}

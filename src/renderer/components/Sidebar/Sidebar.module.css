@@ -1,0 +1,39 @@
+@import '../../styles/themes/default.css';
+
+.sidenav {
+  width: 240px;
+  height: 100vh;
+  background: var(--background-color);
+  overflow-x: hidden;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav a {
+  padding: 10px;
+  text-decoration: none;
+  font-family: var(--font);
+  font-size: 1.1rem;
+  color: var(--link-color);
+  display: block;
+}
+
+.sidenav a:hover {
+  background-color: var(--alternate-background-color);
+}
+
+.header-container {
+  display: flex;
+  direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin: 1px 0px;
+  background-color: var(--secondary-color);
+}
+
+.header-label {
+  font-size: 0.85rem;
+  color: var(--text-color);
+}
