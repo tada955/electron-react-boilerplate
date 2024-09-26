@@ -1,5 +1,5 @@
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { ReactFlowProvider } from '@xyflow/react'
 
 import Home from './views/Home';
@@ -16,13 +16,8 @@ class appState {
 export default function appRoutes() {
 
   const start_model = new HCCM_Model();
-  const defaultEntity = new Entity(5, 'Entity Test 5');
-  start_model.entities.push(defaultEntity);
-  start_model.entities.push(new Entity(6, 'Entity Test 6'));
-  // const defaultEntity = new Entity(4, 'Entity Test 4');
-  // start_model.entities.push(defaultEntity);
-
   const [app_model, setAppModel] = useState<HCCM_Model>(start_model);
+  let ref_mod = useRef(app_model);
 
   async function startDB() {
     const init_db = await window.electron.initialiseDB();
@@ -33,14 +28,25 @@ export default function appRoutes() {
   }
 
   useEffect(() => {
-    startDB();
+    // window.electron.ipcRenderer.clearChannel('onSaveModel');
+    window.electron.onSaveModel((value) => {
+      onSave();
+    });
+    window.electron.ipcRenderer.on('on-open-model', function(e, arg) {
+      setAppModel(e);
+      ref_mod.current = e;
+    });
   }, []);
+
+  async function onSave() {
+    await window.electron.saveModel(ref_mod.current);
+  }
 
   return (
     <ReactFlowProvider>
       <MemoryRouter>
         <Routes>
-          <Route path="/" Component={() => <Home app_model={app_model} setAppModel={setAppModel}/>} />
+          <Route path="/" Component={() => <Home ref_mod={ref_mod} app_model={app_model} setAppModel={setAppModel}/>} />
         </Routes>
       </MemoryRouter>
     </ReactFlowProvider>

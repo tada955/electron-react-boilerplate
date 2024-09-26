@@ -12,6 +12,7 @@ export default function EntityDiagramNodeContextMenu({
   left,
   right,
   bottom,
+  ref_mod,
   app_model,
   setAppModel,
   ...props
@@ -28,6 +29,7 @@ export default function EntityDiagramNodeContextMenu({
       new_model = removeEvent(app_model, evt);
     }
     setAppModel(new_model);
+    ref_mod.current = new_model;
     setNodes((nodes) => nodes.filter((n) => n.id !== node.id));
 
   }, [setNodes, setEdges]);

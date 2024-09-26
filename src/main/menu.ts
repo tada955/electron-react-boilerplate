@@ -200,6 +200,12 @@ export default class MenuBuilder {
           {
             label: '&Open',
             accelerator: 'Ctrl+O',
+            click: () => app.emit('on-open-click'),
+          },
+          {
+            label: '&Save',
+            accelerator: 'Ctrl+S',
+            click: () => this.mainWindow.webContents.send('on-save-click'),
           },
           {
             label: '&Close',
@@ -207,6 +213,11 @@ export default class MenuBuilder {
             click: () => {
               this.mainWindow.close();
             },
+          },
+          {
+            label: '&Test',
+            accelerator: 'Ctrl+T',
+            click: () => this.mainWindow.webContents.send('update-counter', 1),
           },
         ],
       },

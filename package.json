@@ -103,13 +103,18 @@
   "dependencies": {
     "@electron/notarize": "^2.3.2",
     "@xyflow/react": "^12.2.0",
+    "ace-builds": "^1.36.2",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
     "lowdb": "^7.0.1",
+    "prismjs": "^1.29.0",
     "react": "^18.2.0",
+    "react-ace": "^12.0.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-router-dom": "^6.16.0",
+    "react-simple-code-editor": "^0.14.1",
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@electron/rebuild": "^3.3.0",

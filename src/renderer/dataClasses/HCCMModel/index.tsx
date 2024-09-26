@@ -2,6 +2,10 @@ import Entity from '../Entity';
 import EntityAttribute from '../EntityAttribute';
 import Event from '../Event';
 import Activity from '../Activity';
+import Transition from '../Transition';
+import Logic from '../Logic';
+import { start } from 'repl';
+import LogicStatement from '../LogicStatement';
 
 export default class HCCM_Model {
   id: number;
@@ -10,10 +14,11 @@ export default class HCCM_Model {
   entity_attributes: EntityAttribute[];
   activities: Activity[];
   events: Event[];
-  transitions: number[];
-  logic: number[];
+  transitions: Transition[];
+  logic: Logic[];
+  logic_statements: LogicStatement[];
   constructor(id=0, name='New HCCM Model', entities=[], entity_attributes=[],
-  activities=[], events=[], transitions=[], logic=[]){
+  activities=[], events=[], transitions=[], logic=[], logic_statements=[]){
     this.id = id;
     this.name = name;
     this.entities = entities;
@@ -22,6 +27,7 @@ export default class HCCM_Model {
     this.events = events;
     this.transitions = transitions;
     this.logic = logic;
+    this.logic_statements = logic_statements;
   }
 }
 
@@ -57,6 +63,23 @@ export function removeEntityAttribute(mod: HCCM_Model, entAttr: EntityAttribute)
 }
 
 export function addActivity(mod: HCCM_Model, act: Activity){
+
+  const num_evts = mod.events.length
+    var nextId = 0;
+    if (num_evts === 0) {
+      nextId = 1;
+    } else {
+      nextId = mod.events[num_evts - 1].id + 1
+    }
+
+  const start_evt = new Event(nextId, act.name+'_Start', true);
+  const end_evt = new Event(nextId+1, act.name+'_End', true);
+  mod.events.push(start_evt);
+  mod.events.push(end_evt);
+
+  act.start_event = start_evt.id;
+  act.end_event = end_evt.id;
+
   mod.activities.push(act);
   for (var e of act.participants) {
     const ent = mod.entities.find((e1) => e1.id === e);
@@ -90,18 +113,11 @@ export function removeActivityParticipant(mod: HCCM_Model, act: Activity, ent: E
   return mod;
 }
 
-// export function updateActivity(mod: HCCM_Model, act: Activity){
-//     mod.activities = mod.activites.map((a) => {
-//       if (a.id === newAct.id) {
-//         return newAct;
-//       } else {
-//         return a;
-//       }
-//     });
-//     setAppModel(mod);
-// }
-
 export function removeActivity(mod: HCCM_Model, act: Activity){
+  const start_evt = getEvent(mod, act.start_event);
+  mod = removeEvent(mod, start_evt);
+  const end_evt = getEvent(mod, act.end_event);
+  mod = removeEvent(mod, end_evt);
   for (var e of act.participants) {
     const ent = mod.entities.find((e1) => e1.id === e);
     if (ent) {
@@ -154,5 +170,51 @@ export function removeEvent(mod: HCCM_Model, evt: Event){
     }
   }
   mod.events = mod.events.filter((a) => a.id != evt.id)
+  return mod;
+}
+
+export function addTransition(mod: HCCM_Model, trns: Transition){
+  mod.transitions.push(trns);
+
+  const ent = mod.entities.find((e1) => e1.id === trns.participant);
+  if (ent) {
+    ent.entity_transitions.push(trns.id);
+  }
+  
+  return mod;
+}
+
+export function getTransitionFromTo(mod: HCCM_Model, from_id: number, to_id: number){
+  return mod.transitions.find((a) => ((a.from_event === from_id) && (a.to_event === to_id)));
+}
+
+export function removeTransition(mod: HCCM_Model, trns: Transition){
+  mod.transitions = mod.transitions.filter((a) => a.id != trns.id)
+  const ent = mod.entities.find((e1) => e1.id === trns.participant);
+  if (ent) {
+    ent.entity_transitions = ent.entity_transitions.filter((i) => i != trns.id)
+  }
+  return mod;
+}
+
+export function addLogic(mod: HCCM_Model, log: Logic){
+  mod.logic.push(log);
+  const evt = mod.events.find((e1) => e1.id === log.event_id);
+  if (evt) {
+    evt.logic = log.id;
+  }
+  return mod;
+}
+
+export function getLogic(mod: HCCM_Model, id: number){
+  return mod.logic.find((a) => a.id === id);
+}
+
+export function removeLogic(mod: HCCM_Model, log: Logic){
+  mod.logic = mod.logic.filter((a) => a.id != log.id)
+  const evt = mod.events.find((e1) => e1.id === log.event_id);
+  if (evt) {
+    evt.logic = 0;
+  }
   return mod;
 }

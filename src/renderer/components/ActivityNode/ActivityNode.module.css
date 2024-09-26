@@ -80,6 +80,26 @@
   text-wrap: wrap;
 }
 
+.node-start-logic {
+  background: red;
+  height: 10pt;
+  width: 10pt;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.node-end-logic {
+  background: red;
+  height: 10pt;
+  width: 10pt;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .react-flow__node-resizer .react-flow__handle,
 .react-flow__node-circle .react-flow__handle,
 .react-flow__node-textinput .react-flow__handle {

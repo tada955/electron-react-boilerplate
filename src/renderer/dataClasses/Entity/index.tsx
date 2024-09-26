@@ -6,6 +6,7 @@ export default class Entity {
   entity_activities: number[];
   entity_events: number[];
   entity_transitions: number[];
+  diagram_properties: any;
   constructor(id=0, name='New Entity', active_type=true, entity_attributes=[],
     entity_activities=[], entity_events=[], entity_transitions=[]){
     this.id = id;

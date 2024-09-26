@@ -8,56 +8,56 @@ function EventNode ({ data, selected }) {
     <>
     <NodeResizer minWidth={80} minHeight={80} isVisible={selected} color={'blue'}/>
     <Handle
-          style={{ position: 'absolute', left: "50%", transform: 'translateX(-3pt) translateY(-3pt)' }}
+          style={{ position: 'absolute', left: "50%", transform: 'translateX(-3pt) translateY(-3pt)', zIndex: -1}}
           id="a"
           type="source"
           position={Position.Top}
           isConnectable={true}
         />
       <Handle
-          style={{ position: 'absolute', left: "85.35%", top: "14.65%", transform: 'translateX(-3pt) translateY(-3pt)' }}
+          style={{ position: 'absolute', left: "85.35%", top: "14.65%", transform: 'translateX(-3pt) translateY(-3pt)', zIndex: -1 }}
           id="b"
           type="source"
           position={Position.Top}
           isConnectable={true}
         />
       <Handle
-          style={{ position: 'absolute', left: "100%", top: "50%", transform: 'translateX(-3pt) translateY(-3pt)' }}
+          style={{ position: 'absolute', left: "100%", top: "50%", transform: 'translateX(-3pt) translateY(-3pt)', zIndex: -1 }}
           id="c"
           type="source"
           position={Position.Right}
           isConnectable={true}
         />
       <Handle
-        style={{ position: 'absolute', left: "85.35%", top: "85.35%", transform: 'translateX(-3pt) translateY(-3pt)' }}
+        style={{ position: 'absolute', left: "85.35%", top: "85.35%", transform: 'translateX(-3pt) translateY(-3pt)', zIndex: -1 }}
         id="d"
         type="source"
         position={Position.Bottom}
         isConnectable={true}
       />
       <Handle
-        style={{ position: 'absolute', left: "50%", top: "100%", transform: 'translateX(-3pt) translateY(-3pt)' }}
+        style={{ position: 'absolute', left: "50%", top: "100%", transform: 'translateX(-3pt) translateY(-3pt)', zIndex: -1 }}
         id="e"
         type="source"
         position={Position.Bottom}
         isConnectable={true}
       />
       <Handle
-        style={{ position: 'absolute', left: "14.65%", top: "85.35%", transform: 'translateX(-3pt) translateY(-3pt)' }}
+        style={{ position: 'absolute', left: "14.65%", top: "85.35%", transform: 'translateX(-3pt) translateY(-3pt)', zIndex: -1 }}
         id="f"
         type="source"
         position={Position.Bottom}
         isConnectable={true}
       />
       <Handle
-        style={{ position: 'absolute', left: "0%", top: "50%", transform: 'translateX(-3pt) translateY(-3pt)' }}
+        style={{ position: 'absolute', left: "0%", top: "50%", transform: 'translateX(-3pt) translateY(-3pt)', zIndex: -1 }}
         id="g"
         type="source"
         position={Position.Left}
         isConnectable={true}
       />
       <Handle
-        style={{ position: 'absolute', left: "14.65%", top: "14.65%", transform: 'translateX(-3pt) translateY(-3pt)' }}
+        style={{ position: 'absolute', left: "14.65%", top: "14.65%", transform: 'translateX(-3pt) translateY(-3pt)', zIndex: -1 }}
         id="h"
         type="source"
         position={Position.Top}

@@ -14,6 +14,7 @@ export default function EntityDiagramPaneContextMenu({
   left,
   right,
   bottom,
+  ref_mod,
   app_model,
   setAppModel,
   ent,
@@ -34,6 +35,7 @@ export default function EntityDiagramPaneContextMenu({
     const newAct = new Activity(nextId, 'New Activity', 0, 0, [ent.id])
     const new_model = addActivity(app_model, newAct);
     setAppModel(new_model);
+    ref_mod.current = new_model;
 
     setNodes((nds) =>
       nds.map((node) => {
@@ -57,8 +59,20 @@ export default function EntityDiagramPaneContextMenu({
       selected: true,
       dragging: false,
       id: 'activity-node-' + nextId.toString(),
-      position,
+      position: position,
     };
+
+    // const newLogicNode = {
+    //   selected: false,
+    //   dragging: false,
+    //   draggable: false,
+    //   type: 'logic',
+    //   id: 'activity-node-' + nextId.toString() + '-start-logic',
+    //   parentId: 'activity-node-' + nextId.toString(),
+    //   extent: 'parent',
+    //   // style: { backgroundColor: 'rgba(255, 0, 0, 0.2)', width: 10, height: 10, padding: 0 },
+    //   position: {x: 0, y: 0}
+    // };
 
     addNodes(newNode);
   }, [getNodes, addNodes]);
@@ -76,6 +90,7 @@ export default function EntityDiagramPaneContextMenu({
     const newEvt = new Event(nextId, 'New Event', true, [ent.id], )
     const new_model = addEvent(app_model, newEvt);
     setAppModel(new_model);
+    ref_mod.current = new_model;
 
     setNodes((nds) =>
       nds.map((node) => {

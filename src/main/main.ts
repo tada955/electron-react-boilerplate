@@ -14,8 +14,10 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import { initialiseDB } from './services/Database/DBManager';
+const { dialog } = require('electron')
+import { initialiseDB, saveModel, openModel } from './services/Database/DBManager';
 import { readAllEntities } from './services/Database/Entity';
+import HCCM_Model from '../renderer/dataClasses/HCCMModel';
 
 class AppUpdater {
   constructor() {
@@ -126,6 +128,29 @@ app.on('window-all-closed', () => {
   }
 });
 
+// app.on('on-save-click', () => {mainWindow.webContents.send('on-save-click');});
+
+app.on('on-open-click', () => {
+
+  dialog.showOpenDialog(mainWindow, {
+    properties: ['openFile']
+  }).then(result => {
+    console.log(result.canceled)
+    console.log(result.filePaths)
+    if (!result.canceled) {
+      const mod = openModel(result.filePaths[0]);
+      mod.then(function(res) {
+        console.log(res);
+        mainWindow.webContents.send('on-open-model', res);
+      });
+      
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+
+});
+
 app
   .whenReady()
   .then(() => {
@@ -134,6 +159,17 @@ app
     });
     ipcMain.handle('entity:readAll', async () => {
       return readAllEntities();
+    });
+    ipcMain.handle('model:save', async (_, mod: HCCM_Model) => {
+      dialog.showSaveDialog(mainWindow).then(result => {
+        console.log(result.canceled)
+        console.log(result.filePath)
+        if (!result.canceled) {
+          saveModel(result.filePath, mod);
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     });
     createWindow();
     app.on('activate', () => {

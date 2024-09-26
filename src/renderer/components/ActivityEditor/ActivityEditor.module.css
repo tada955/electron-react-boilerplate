@@ -7,33 +7,52 @@
   display: flex;
   flex-direction: column;
   color: var(--text-color);
+  font-family: var(--font);
 }
 
-/* .attribute-header-container {
-  height: 1vh;
-  min-height: 2px;
-  display: flex;
-  direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  margin: 1px 0px;
-  background-color: var(--secondary-color);
+.id-container {
+  padding: 5px;
 }
 
-.attribute-header-label {
-  font-size: 0.85rem;
-  color: var(--text-color);
+.name-container {
+  padding: 5px;
 }
 
-.attribute-container {
-  height: 120pt;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: left;
-  padding: 10px 20px;
-  margin: 1px 0px;
-  background-color: var(--secondary-color);
-  overflow-y: scroll;
-} */
+.participants-field {
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.participant-container {
+  padding: 2px;
+}
+
+.type-container {
+  padding: 2px;
+}
+
+.type-label {
+  padding: 2px;
+  margin-right: 10px;
+}
+
+.type-button {
+  margin: 5px;
+}
+
+.type-button-label {
+  /* line-height: 32px; */
+  margin-right: 30px;
+}
+
+.state-change-area {
+  /* line-height: 32px; */
+  padding: 2px;
+  resize: none;
+}
+
+.logic-area {
+  width: 100%;
+  height: 200px;
+}

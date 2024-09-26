@@ -1,4 +1,4 @@
-.container {
+.entity-editor-container {
   width: 60%;
   height: 100vh;
   background: var(--background-color);
@@ -9,6 +9,7 @@
   color: var(--text-color);
   border-color: white;
   border-width: 2pt;
+  font-family: var(--font);
 }
 
 .attribute-header-container {

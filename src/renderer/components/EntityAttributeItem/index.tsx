@@ -4,11 +4,13 @@ import styles from './EntityAttributeItem.module.css';
 import EntityAttribute from '../../dataClasses/EntityAttribute';
 
 export default function EntityAttributeItem({
+  ref_mod,
   app_model,
   setAppModel,
   entAttr,
   onDelete
 }: {
+  ref_mod: any;
   app_model: any;
   setAppModel: any;
   entAttr: EntityAttribute;
@@ -29,6 +31,7 @@ export default function EntityAttributeItem({
       }
     });
     setAppModel(new_mod);
+    ref_mod.curent = new_mod;
     setAttrName(event.target.value)
   }
 
@@ -44,6 +47,7 @@ export default function EntityAttributeItem({
       }
     });
     setAppModel(new_mod);
+    ref_mod.curent = new_mod;
     setAttrVal(event.target.value)
   }
 
